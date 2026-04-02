@@ -2,15 +2,25 @@ import React from 'react';
 import VideoCard from './VideoCard';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
-const VideoList = ({ videos, onVideoSelect, onPageChange, hasNextPage, hasPrevPage }) => {
+const VideoList = ({
+                       videos,
+                       onVideoSelect,
+                       onPageChange,
+                       hasNextPage,
+                       hasPrevPage,
+                       onToggleFavorite,
+                       isVideoFavorited
+                   }) => {
     return (
         <div className="content-wrap">
             <div className="video-grid">
                 {videos.map((video) => (
                     <VideoCard
-                        key={video.id.videoId || video.id}
+                        key={video.id?.videoId || video.id}
                         video={video}
-                        onVideoSelect={onVideoSelect}
+                        onSelect={onVideoSelect}
+                        onToggleFavorite={onToggleFavorite}
+                        isFavorited={isVideoFavorited?.(video)}
                     />
                 ))}
             </div>
