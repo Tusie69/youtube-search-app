@@ -24,8 +24,16 @@ function App() {
   const fetchVideos = async (query, pageToken = '') => {
     setLoading(true);
     try {
+      const params = {
+        q: query,
+      };
+
+      if (pageToken) {
+        params.pageToken = pageToken;
+      }
+
       const response = await youtube.get('/search', {
-        params: { q: query, pageToken }
+        params,
       });
 
       setVideos(response.data.items || []);
@@ -34,6 +42,8 @@ function App() {
     } catch (error) {
       console.error('Lỗi khi gọi API:', error);
       setVideos([]);
+      setNextPageToken(null);
+      setPrevPageToken(null);
     } finally {
       setLoading(false);
     }
